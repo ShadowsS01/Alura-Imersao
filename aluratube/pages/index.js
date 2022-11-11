@@ -1,11 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { videoService } from "../src/services/videoService";
+import { supabase } from "../src/utils/supabaseClient";
 
 export default function HomePage() {
+  const service = videoService();
   const [valorDoFiltro, setValorDoFiltro] = useState("");
+  const [playlists, setPlaylists] = useState({});
+
+  useEffect(() => {
+    service.getAllVideos().then((dados) => {
+      const novasPlaylists = {};
+
+      dados.data.forEach((video) => {
+        if (!novasPlaylists[video.playlist])
+          novasPlaylists[video.playlist] = [];
+        novasPlaylists[video.playlist] = [
+          video,
+          ...novasPlaylists[video.playlist],
+        ];
+      });
+
+      setPlaylists(novasPlaylists);
+
+      return () => {
+        getVideoRealtime.unsubscribe();
+      };
+    });
+  }, []);
 
   return (
     <>
@@ -15,7 +40,7 @@ export default function HomePage() {
           setValorDoFiltro={setValorDoFiltro}
         />
         <Header />
-        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
+        <Timeline searchValue={valorDoFiltro} playlists={playlists}>
           Conteúdo
         </Timeline>
       </div>
@@ -99,7 +124,7 @@ function Timeline({ searchValue, ...propriedades }) {
                 })
                 .map((video) => {
                   return (
-                    <a key={video.url} href={video.url}>
+                    <a key={video.id} href={video.url}>
                       <img src={video.thumb} />
                       <span>{video.title}</span>
                     </a>
