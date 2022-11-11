@@ -1,5 +1,5 @@
 import { Box, Text, TextField, Image, Button } from "@skynexui/components";
-import React from "react";
+import { useState, useEffect } from "react";
 import appConfig from "../config.json";
 import { useRouter } from "next/router";
 import { createClient } from "@supabase/supabase-js";
@@ -9,7 +9,6 @@ import {
   Sticker,
 } from "../src/components/exportComponents";
 
-// Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -26,10 +25,10 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
 export default function ChatPage() {
   const roteamento = useRouter();
   const usuarioLogado = roteamento.query.username;
-  const [mensagem, setMensagem] = React.useState("");
-  const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
+  const [mensagem, setMensagem] = useState("");
+  const [listaDeMensagens, setListaDeMensagens] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     supabaseClient
       .from("mensagens")
       .select("*")
@@ -39,13 +38,6 @@ export default function ChatPage() {
       });
 
     const subscription = escutaMensagensEmTempoReal((novaMensagem) => {
-      // Quero reusar um valor de referencia (objeto/array)
-      // Passar uma função pro setState
-
-      // setListaDeMensagens([
-      //     novaMensagem,
-      //     ...listaDeMensagens
-      // ])
       setListaDeMensagens((valorAtualDaLista) => {
         return [novaMensagem, ...valorAtualDaLista];
       });
@@ -56,30 +48,15 @@ export default function ChatPage() {
     };
   }, []);
 
-  /*
-    // Usuário
-    - Usuário digita no campo textarea
-    - Aperta enter para enviar
-    - Tem que adicionar o texto na listagem
-    
-    // Dev
-    - [X] Campo criado
-    - [X] Vamos usar o onChange usa o useState (ter if pra caso seja enter pra limpar a variavel)
-    - [X] Lista de mensagens 
-    */
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
-      // id: listaDeMensagens.length + 1,
       de: usuarioLogado,
       texto: novaMensagem,
     };
 
     supabaseClient
       .from("mensagens")
-      .insert([
-        // Tem que ser um objeto com os MESMOS CAMPOS que você escreveu no supabase
-        mensagem,
-      ])
+      .insert([mensagem])
       .then(({ data }) => {});
 
     setMensagem("");
@@ -128,12 +105,12 @@ export default function ChatPage() {
         >
           <MessageList mensagens={listaDeMensagens} />
           {/* {listaDeMensagens.map((mensagemAtual) => {
-                        return (
-                            <li key={mensagemAtual.id}>
-                                {mensagemAtual.de}: {mensagemAtual.texto}
-                            </li>
-                        )
-                    })} */}
+            return (
+              <li key={mensagemAtual.id}>
+                {mensagemAtual.de}: {mensagemAtual.texto}
+              </li>
+            );
+          })} */}
           <Box
             as="form"
             onSubmit={(event) => {

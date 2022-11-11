@@ -1,8 +1,7 @@
 import { Box, Button, Text, TextField, Image } from "@skynexui/components";
 import appConfig from "../config.json";
 import { useRouter } from "next/router";
-import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Titulo(props) {
   const Tag = props.tag || "h1";
@@ -21,16 +20,15 @@ function Titulo(props) {
 }
 
 export default function PaginaInicial() {
-  const [username, setUsername] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const roteamento = useRouter();
 
   // Conexão à api GitHub
   useEffect(() => {
     fetch(`https://api.github.com/users/${username}`).then(async (resposta) => {
       let dados = await resposta.json();
-      const name = dados.name;
-      setName(name);
+      setName(dados.name);
     });
   });
 
@@ -104,17 +102,17 @@ export default function PaginaInicial() {
             </Text>
 
             {/* <input
-                            type="text"
-                            value={username}
-                            onChange={function (event) {
-                                console.log('usuario digitou', event.target.value);
-                                // Onde ta o valor?
-                                const valor = event.target.value;
-                                // Trocar o valor da variavel
-                                // através do React e avise quem precisa
-                                setUsername(valor);
-                            }}
-                        /> */}
+              type="text"
+              value={username}
+              onChange={function (event) {
+                console.log("usuario digitou", event.target.value);
+                // Onde ta o valor?
+                const valor = event.target.value;
+                // Trocar o valor da variavel
+                // através do React e avise quem precisa
+                setUsername(valor);
+              }}
+            /> */}
 
             <TextField
               placeholder="Seu GitHub:"
@@ -134,9 +132,11 @@ export default function PaginaInicial() {
             />
 
             {/* Verificação */}
-            {/* {!usernameValido(username) && username.length !== 0
-                            ? <span>Preencha o campo com um usuário válido</span>
-                            : ''} */}
+            {/* {!usernameValido(username) && username.length !== 0 ? (
+              <span>Preencha o campo com um usuário válido</span>
+            ) : (
+              ""
+            )} */}
 
             <Button
               disabled={!usernameValido(username)}
