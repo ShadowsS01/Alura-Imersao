@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyledRegisterVideo } from "./styles";
 import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/router";
@@ -38,11 +38,29 @@ function getVideoId(url) {
 
 export default function RegisterVideo() {
   const router = useRouter();
+  const [formVisivel, setFormVisivel] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+
+  async function getPlaylists() {
+    const { data, error } = await supabase
+      .from("playlists")
+      .select("name")
+      .order("name");
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+    setPlaylists(data);
+  }
+
+  useEffect(() => {
+    getPlaylists();
+  }, []);
 
   const formCadastro = useForm({
-    initialValues: { titulo: "", url: "" },
+    initialValues: { titulo: "", url: "", playlist: playlists[0] },
   });
-  const [formVisivel, setFormVisivel] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -115,12 +133,22 @@ export default function RegisterVideo() {
               value={formCadastro.values.url || ""}
               onChange={formCadastro.handleChange}
             />
-            <input
-              placeholder="Playlist"
-              name="playlist"
-              value={formCadastro.values.playlist || ""}
-              onChange={formCadastro.handleChange}
-            />
+            <div className="select-div">
+              <label htmlFor="playlist">Escolha a playlist:</label>
+              <select
+                id="playlist"
+                name="playlist"
+                placeholder="Playlist"
+                onChange={formCadastro.handleChange}
+                value={formCadastro.values.playlist}
+              >
+                {playlists.map((playlist) => (
+                  <option key={playlist.name} value={playlist.name}>
+                    {playlist.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button type="submit">Cadastrar</button>
           </div>
         </form>

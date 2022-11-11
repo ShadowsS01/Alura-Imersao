@@ -12,7 +12,7 @@ export const StyledRegisterVideo = styled.div`
     background-color: rgba(255, 0, 8, 0.7);
     opacity: 1;
     border-radius: 50%;
-    z-index: 99;
+    z-index: 9999;
     cursor: pointer;
     backdrop-filter: blur(16px);
     &:hover,
@@ -68,7 +68,8 @@ export const StyledRegisterVideo = styled.div`
       padding-top: 40px;
     }
   }
-  input {
+  input,
+  select {
     border-radius: 8px;
     border: 1px solid ${({ theme }) => theme.borderBase};
     padding: 10px 10px;
@@ -86,5 +87,10 @@ export const StyledRegisterVideo = styled.div`
       border-color: transparent;
       box-shadow: 0 0 0 0.15rem rgba(255, 0, 8, 0.7);
     }
+  }
+  .select-div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 `;
