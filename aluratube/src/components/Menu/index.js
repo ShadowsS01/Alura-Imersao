@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo";
+import Search from "./components/Search";
 
 const StyledMenu = styled.header`
   z-index: 9999;
@@ -28,12 +29,16 @@ const StyledMenu = styled.header`
   }
 `;
 
-export default function Menu() {
+export default function Menu({ valorDoFiltro, setValorDoFiltro }) {
   return (
     <StyledMenu>
       <a href="/">
         <Logo />
       </a>
+      <Search
+        valorDoFiltro={valorDoFiltro}
+        setValorDoFiltro={setValorDoFiltro}
+      />
     </StyledMenu>
   );
 }
