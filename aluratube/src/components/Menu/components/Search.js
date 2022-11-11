@@ -6,8 +6,10 @@ const StyledSearch = styled.div`
   border: 1px solid ${({ theme }) => theme.borderBase};
   max-width: 425px;
   width: 100%;
-  border-radius: 2px;
+  padding-left: 8px;
+  border-radius: 40px;
   overflow: hidden;
+  background-color: ${({ theme }) => theme.backgroundBase};
 
   input {
     width: 80%;

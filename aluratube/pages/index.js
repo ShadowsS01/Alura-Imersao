@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Head from "next/head";
 import config from "../config.json";
 import styled from "styled-components";
-import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
 
@@ -11,11 +9,6 @@ export default function HomePage() {
 
   return (
     <>
-      <Head>
-        <title>AluraTube</title>
-        <link rel="icon" href="/Logo.svg" />
-      </Head>
-      <CSSReset />
       <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <Menu
           valorDoFiltro={valorDoFiltro}
@@ -31,6 +24,8 @@ export default function HomePage() {
 }
 
 const StyledHeader = styled.div`
+  /* background-color: ${({ theme }) => theme.backgroundLevel1}; */
+
   img {
     width: 80px;
     height: 80px;
@@ -46,7 +41,7 @@ const StyledHeader = styled.div`
   }
   a {
     border: none;
-    color: ${({ theme }) => theme.borderBase || "rgba(24, 24, 27, 1)"};
+    color: ${({ theme }) => theme.textColorBase || "rgba(24, 24, 27, 1)"};
     &:hover,
     &:focus-visible {
       text-decoration: underline;
