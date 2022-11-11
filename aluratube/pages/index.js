@@ -26,10 +26,14 @@ export default function HomePage() {
 const StyledHeader = styled.div`
   /* background-color: ${({ theme }) => theme.backgroundLevel1}; */
 
-  img {
+  a > img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    transition: 0.3s;
+    &:hover {
+      box-shadow: 0 0 0 0.18rem rgba(255, 0, 8, 1);
+    }
   }
   .user-info {
     margin-top: 50px;

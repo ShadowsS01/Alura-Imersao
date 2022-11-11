@@ -25,7 +25,8 @@ const StyledSearch = styled.div`
     border: none;
     background-color: ${({ theme }) => theme.backgroundLevel2};
     box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
-    border-left: 1px solid ${({ theme }) => theme.borderBase};
+    border: 1px solid ${({ theme }) => theme.borderBase};
+    border-radius: 40px;
     width: 40px;
     height: 40px;
     @media (min-width: 600px) {
