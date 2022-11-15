@@ -1,10 +1,10 @@
 # Aluratube
 
-[![licence mit](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
+[![license mit](https://img.shields.io/badge/licence-MIT-blue)](../LICENSE)
 
 Projeto Next.Js tendo como base o YouTube!
 
-## Tecnologias e libs utilizadas
+## Tecnologias utilizadas
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -16,7 +16,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## Comando SQL
 
-> Comando SQL necessário para deixar o projeto Supabase utilizável por esse projeto pode ser encontrado no [`schema.sql`](./schema.sql)
+> Comando SQL necessário para deixar o projeto Supabase utilizável por esse projeto pode ser encontrado no [`schema.sql`](./schema.sql).
 
 ## Como executar o projeto
 
@@ -46,7 +46,7 @@ cd Alura-Imersao/aluratube
 
 ### 5. Configurar variáveis de ambiente
 
-Copie o arquivo `.env.example` neste diretório para `.env.local` (que será ignorado pelo Git):
+Copie o arquivo `.env.example` neste diretório para `.env.local` *(que será ignorado pelo Git)*:
 
 ```bash
 cp .env.example .env.local
@@ -73,4 +73,4 @@ npm run dev
 
 ## Licença
 
-Este projeto esta sob a licença [MIT](./LICENSE).
+Este projeto esta sob a licença [MIT](../LICENSE).
