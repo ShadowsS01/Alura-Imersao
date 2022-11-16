@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { ColorModeContext } from "./ColorMode";
 
 const StyledSwitch = styled.div`
+  display: flex;
+  align-items: center;
   user-select: none;
   background-color: #333333;
   border: 0;
-  padding: 3px;
+  padding: 4px;
   font-size: 12px;
   width: 50px;
   height: 25px;
@@ -14,6 +16,10 @@ const StyledSwitch = styled.div`
   justify-content: space-around;
   border-radius: 10000px;
   position: relative;
+  * {
+    cursor: pointer;
+  }
+
   label {
     width: 50px;
   }
@@ -37,7 +43,6 @@ const StyledSwitch = styled.div`
     bottom: 0;
     left: 0;
     transition: 0.3s;
-    cursor: pointer;
   }
   input[type="checkbox"] {
     display: none;
