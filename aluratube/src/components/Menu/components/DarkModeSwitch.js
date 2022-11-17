@@ -5,9 +5,7 @@ import { ColorModeContext } from "./ColorMode";
 import { BiMoon, BiSun } from "react-icons/bi";
 
 const StyledSwitch = styled.button`
-  * {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   & > * {
     animation: none;
