@@ -27,7 +27,7 @@ const StyledSwitch = styled.button`
   animation: none;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${({ theme }) => theme.backgroundOpacity};
     border-color: ${({ theme }) => theme.colorMain};
   }

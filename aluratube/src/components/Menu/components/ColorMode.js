@@ -14,8 +14,14 @@ export default function ColorModeProvider(props) {
   const [mode, setMode] = useState(props.initialMode);
 
   useEffect(() => {
-    if (mode !== localStorage.getItem("theme")) {
-      toggleMode();
+    const localTheme = localStorage.getItem("theme");
+
+    if (!localTheme) {
+      localStorage.setItem("theme", mode);
+    } else {
+      if (mode !== localTheme) {
+        toggleMode();
+      }
     }
   }, []);
 
