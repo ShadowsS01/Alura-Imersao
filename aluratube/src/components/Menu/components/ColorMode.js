@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const ColorModeContext = createContext({
   mode: "",
@@ -13,9 +13,21 @@ export const ColorModeContext = createContext({
 export default function ColorModeProvider(props) {
   const [mode, setMode] = useState(props.initialMode);
 
+  useEffect(() => {
+    if (mode !== localStorage.getItem("theme")) {
+      toggleMode();
+    }
+  }, []);
+
   function toggleMode() {
-    if (mode === "dark") setMode("light");
-    if (mode === "light") setMode("dark");
+    if (mode === "dark") {
+      setMode("light");
+      localStorage.setItem("theme", "light");
+    }
+    if (mode === "light") {
+      setMode("dark");
+      localStorage.setItem("theme", "dark");
+    }
   }
 
   return (

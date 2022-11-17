@@ -2,72 +2,52 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { ColorModeContext } from "./ColorMode";
 
-const StyledSwitch = styled.div`
-  display: flex;
-  align-items: center;
-  user-select: none;
-  background-color: #333333;
-  border: 0;
-  padding: 4px;
-  font-size: 12px;
-  width: 50px;
-  height: 25px;
-  display: flex;
-  justify-content: space-around;
-  border-radius: 10000px;
-  position: relative;
+import { BiMoon, BiSun } from "react-icons/bi";
+
+const StyledSwitch = styled.button`
   * {
     cursor: pointer;
   }
 
-  label {
-    width: 50px;
-  }
-  span {
-    display: inline-flex;
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
+  & > * {
+    animation: none;
+    transition: 0ms;
   }
 
-  label:before {
-    content: "";
-    background-color: #fafafa;
-    border: 1px solid #333333;
-    width: 24px;
-    height: 24px;
-    border-radius: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transition: 0.3s;
-  }
-  input[type="checkbox"] {
-    display: none;
-  }
-  input[type="checkbox"]:checked + label:before {
-    transform: translateX(100%);
+  border: 0;
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.backgroundBase};
+  color: ${({ theme }) => theme.textColorBase};
+  border: 2px solid ${({ theme }) => theme.borderBase};
+  backdrop-filter: blur(16px);
+  animation: none;
+
+  &:hover,
+  &:focus {
+    background-color: ${({ theme }) => theme.backgroundOpacity};
+    border-color: ${({ theme }) => theme.colorMain};
   }
 `;
 
 export default function DarkModeSwitch() {
-  const contexto = useContext(ColorModeContext);
+  const { mode, toggleMode } = useContext(ColorModeContext);
+
+  function isDark() {
+    return mode === "dark";
+  }
 
   return (
-    <StyledSwitch>
-      <input
-        id="darkmode"
-        type="checkbox"
-        onChange={() => {
-          contexto.toggleMode();
-        }}
-      />
-      <label htmlFor="darkmode" className="darkmode-switch">
-        <span>🌙</span>
-        <span>☀️</span>
-      </label>
+    <StyledSwitch
+      type="button"
+      onClick={() => toggleMode()}
+      aria-label="Trocar tema"
+      title={`Trocar o tema para ${isDark() ? "claro" : "escuro"}`}
+    >
+      {isDark() ? <BiSun size={25} /> : <BiMoon size={25} />}
     </StyledSwitch>
   );
 }
