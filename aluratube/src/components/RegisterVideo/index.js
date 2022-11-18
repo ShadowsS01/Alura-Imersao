@@ -30,8 +30,12 @@ export default function RegisterVideo() {
 
       if (!values.url) {
         errors.url = "Campo obrigatório";
-      } else if (!values.url.startsWith("https://www.youtube.com/watch?v=")) {
-        errors.url = "A url deve ser do YouTube";
+      } else if (
+        !values.url.startsWith("https://www.youtube.com/watch?v=") &&
+        !values.url.startsWith("https://youtu.be/") &&
+        !values.url.startsWith("https://m.youtube.com/watch?v=")
+      ) {
+        errors.url = "A URL deve ser de um video do YouTube!";
       }
 
       if (values.playlist.trim().length === 0) {
