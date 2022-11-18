@@ -1,6 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-export const ColorModeContext = createContext({
+interface ContextProps {
+  mode: string;
+  setMode: (mode: string) => void;
+  toggleMode: () => void;
+}
+
+export const ColorModeContext = createContext<ContextProps>({
   mode: "",
   setMode: () => {
     alert("Você precisa me configurar primeiro!");
@@ -10,7 +16,10 @@ export const ColorModeContext = createContext({
   },
 });
 
-export default function ColorModeProvider(props) {
+export default function ColorModeProvider(props: {
+  initialMode: string;
+  children: ReactNode;
+}) {
   const [mode, setMode] = useState(props.initialMode);
 
   useEffect(() => {

@@ -9,23 +9,28 @@ export function videoService() {
 }
 
 export const getInfoVideo = {
-  getVideoId(url) {
+  getVideoId(url: string): string {
     if (url.startsWith("https://youtu.be/")) {
       const videoId = url.split("/")[3];
       return videoId;
-    } else {
+    } else if (
+      url.startsWith("https://www.youtube.com/watch?") ||
+      url.startsWith("https://m.youtube.com/watch?v=")
+    ) {
       const videoId = url.split("v=")[1];
       const ampersandPosition = videoId.indexOf("&");
       if (ampersandPosition !== -1) {
         return videoId.substring(0, ampersandPosition);
       }
       return videoId;
+    } else {
+      return "";
     }
   },
-  getThumbnail(videoId) {
+  getThumbnail(videoId: string): string {
     return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   },
-  getVideoImage(url) {
+  getVideoImage(url: string): string {
     return this.getThumbnail(this.getVideoId(url));
   },
 };

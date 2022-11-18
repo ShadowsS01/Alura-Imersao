@@ -2,31 +2,39 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "../utils/supabaseClient";
 
+import type { PlaylistProps } from "../utils/types";
+
 import { Timeline } from "../components/Timeline";
 import { Header } from "../components/Header";
 import { videoService } from "../services/videoService";
 import Menu from "../components/Menu";
 
-export default function HomePage() {
+export default function Home() {
   const service = videoService();
   const [valorDoFiltro, setValorDoFiltro] = useState("");
-  const [playlists, setPlaylists] = useState({});
+  const [playlists, setPlaylists] = useState<PlaylistProps>({
+    playlists: {},
+  });
 
   useEffect(() => {
     const getVideos = () =>
-      service.getAllVideos().then((dados) => {
-        const novasPlaylists = {};
+      service.getAllVideos().then(({ data }) => {
+        const novasPlaylists: PlaylistProps = {
+          playlists: {},
+        };
 
-        dados.data.forEach((video) => {
-          if (!novasPlaylists[video.playlist])
-            novasPlaylists[video.playlist] = [];
-          novasPlaylists[video.playlist] = [
-            video,
-            ...novasPlaylists[video.playlist],
-          ];
-        });
+        if (data) {
+          data.forEach((video) => {
+            if (!novasPlaylists.playlists[video.playlist])
+              novasPlaylists.playlists[video.playlist] = [];
+            novasPlaylists.playlists[video.playlist] = [
+              video,
+              ...novasPlaylists.playlists[video.playlist],
+            ];
+          });
 
-        setPlaylists(novasPlaylists);
+          setPlaylists(novasPlaylists);
+        }
       });
     getVideos();
 
@@ -65,7 +73,7 @@ export default function HomePage() {
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
       <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
       <Header />
-      <Timeline searchValue={valorDoFiltro} playlists={playlists}>
+      <Timeline searchValue={valorDoFiltro} propriedades={playlists}>
         Conteúdo
       </Timeline>
     </div>

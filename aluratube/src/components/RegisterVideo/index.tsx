@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { supabase } from "../../utils/supabaseClient";
 
@@ -8,20 +8,32 @@ import { StyledRegisterVideo } from "./styles";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BiLoader } from "react-icons/bi";
+import Image from "next/image";
+
+interface FormProps {
+  titulo: string;
+  url: string;
+  playlist: string;
+}
 
 export default function RegisterVideo() {
   const [formVisivel, setFormVisivel] = useState(false);
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const formik = useFormik({
+  const formik = useFormik<FormProps>({
     initialValues: {
       titulo: "",
       url: "",
       playlist: playlists[0] || "",
     },
     validate: (values) => {
-      const errors = {};
+      const errors: {
+        titulo?: string;
+        url?: string;
+        playlist?: string;
+      } = {};
+
       if (!values.titulo) {
         errors.titulo = "Campo obrigatório";
       } else if (values.titulo.trim().length < 1) {
@@ -31,7 +43,7 @@ export default function RegisterVideo() {
       if (!values.url) {
         errors.url = "Campo obrigatório";
       } else if (
-        !values.url.startsWith("https://www.youtube.com/watch?v=") &&
+        !values.url.startsWith("https://www.youtube.com/watch?") &&
         !values.url.startsWith("https://youtu.be/") &&
         !values.url.startsWith("https://m.youtube.com/watch?v=")
       ) {
@@ -63,7 +75,7 @@ export default function RegisterVideo() {
       return;
     }
 
-    var dados = [];
+    var dados: string[] = [];
     data.map(({ name }) => dados.push(name));
     setPlaylists(dados);
   }
@@ -72,7 +84,7 @@ export default function RegisterVideo() {
     getPlaylists();
   }, []);
 
-  async function handleSubmit(values) {
+  async function handleSubmit(values: FormProps) {
     setLoading(true);
     const loadToast = toast.loading("Criando video...");
 
@@ -96,7 +108,7 @@ export default function RegisterVideo() {
       toast.success("Video criado com sucesso!");
       formik.resetForm();
       setFormVisivel(false);
-    } catch (error) {
+    } catch (error: any) {
       if (
         error.details ===
         `Key (playlist)=(${formik.values.playlist}) is not present in table \"playlists\".`
@@ -111,6 +123,18 @@ export default function RegisterVideo() {
     } finally {
       setLoading(false);
       toast.dismiss(loadToast);
+    }
+  }
+
+  function urlVerification(url: string): string | null {
+    if (
+      url.startsWith("https://youtu.be/") ||
+      url.startsWith("https://www.youtube.com/watch?") ||
+      url.startsWith("https://m.youtube.com/watch?v=")
+    ) {
+      return url;
+    } else {
+      return null;
     }
   }
 
@@ -184,9 +208,9 @@ export default function RegisterVideo() {
             <button
               type="submit"
               disabled={
-                formik.errors.titulo ||
-                formik.errors.url ||
-                formik.errors.playlist ||
+                formik.errors.titulo != undefined ||
+                formik.errors.url != undefined ||
+                formik.errors.playlist != undefined ||
                 formik.values == formik.initialValues ||
                 loading
               }
@@ -197,13 +221,14 @@ export default function RegisterVideo() {
                 "Cadastrar"
               )}
             </button>
-            {formik.values.url?.startsWith(
-              "https://www.youtube.com/watch?v="
-            ) && (
+            {urlVerification(formik.values.url) && (
               <div className="view-thumbnail">
-                <img
+                <Image
+                  width={350}
+                  height={210}
+                  className="Thumbnail"
                   src={getInfoVideo.getVideoImage(formik.values.url)}
-                  alt="thumbnail"
+                  alt={`Thumbnail do video "${formik.values.titulo}"`}
                 />
               </div>
             )}

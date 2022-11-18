@@ -42,6 +42,6 @@ export const StyledHeader = styled.div`
 `;
 export const StyledBanner = styled.div`
   background-color: rgba(24, 24, 27, 1);
-  background-image: url(${({ bg }) => bg});
+  background-image: url(${({ bg }: { bg: string }) => bg});
   height: 230px;
 `;

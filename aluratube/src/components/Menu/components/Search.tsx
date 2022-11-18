@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import type { SearchProps } from "../type";
 
 const StyledSearch = styled.div`
   display: flex;
@@ -53,7 +54,10 @@ const StyledSearch = styled.div`
   }
 `;
 
-export default function Search({ valorDoFiltro, setValorDoFiltro }) {
+export default function Search({
+  valorDoFiltro,
+  setValorDoFiltro,
+}: SearchProps) {
   const valorDaBusca = valorDoFiltro;
   const setValorDaBusca = setValorDoFiltro;
 
