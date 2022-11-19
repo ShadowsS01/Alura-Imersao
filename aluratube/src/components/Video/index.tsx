@@ -4,9 +4,10 @@ import Link from "next/link";
 
 import { supabase } from "../../utils/supabaseClient";
 import { StyledVideo } from "./styles";
+import toast from "react-hot-toast";
 
 import { FiArrowLeft } from "react-icons/fi";
-import toast from "react-hot-toast";
+import { BiLoaderCircle } from "react-icons/bi";
 
 interface VideoProps {
   videoId: string | string[];
@@ -18,6 +19,7 @@ export const Video = ({ videoId }: VideoProps) => {
 
   useEffect(() => {
     const videoVerification = async () => {
+      const toastLoading = toast.loading("Video sendo carregado...");
       try {
         const { data, error } = await supabase
           .from("videos")
@@ -33,6 +35,8 @@ export const Video = ({ videoId }: VideoProps) => {
       } catch (err: any) {
         toast.error("Video não encontrado!");
         router.push("/");
+      } finally {
+        toast.dismiss(toastLoading);
       }
     };
     videoVerification();
@@ -40,21 +44,29 @@ export const Video = ({ videoId }: VideoProps) => {
 
   return (
     <StyledVideo>
-      <div>
-        <Link href="/" className="back">
-          <FiArrowLeft />
-          Voltar
-        </Link>
-        <iframe
-          width="100%"
-          height="100%"
-          src={`https://www.youtube.com/embed/${videoYTId}`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
+      {videoYTId === "" ? (
+        <div className="div-loadingVideo" title="Video sendo carregado...">
+          <h2>
+            Carregando <BiLoaderCircle />
+          </h2>
+        </div>
+      ) : (
+        <div>
+          <Link href="/" className="back" title="Voltar para o inicio">
+            <FiArrowLeft />
+            Voltar
+          </Link>
+          <iframe
+            width="100%"
+            height="100%"
+            src={`https://www.youtube.com/embed/${videoYTId}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
     </StyledVideo>
   );
 };

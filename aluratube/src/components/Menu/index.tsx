@@ -10,7 +10,7 @@ import { Logo } from "../Logo";
 export default function Menu({ valorDoFiltro, setValorDoFiltro }: SearchProps) {
   return (
     <StyledMenu>
-      <Link href="/">
+      <Link href="/" title="Inicio">
         <Logo />
       </Link>
       <Search

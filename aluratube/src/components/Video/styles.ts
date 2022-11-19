@@ -17,6 +17,31 @@ export const StyledVideo = styled.div`
     margin-top: 32px;
   }
 
+  & > .div-loadingVideo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    & > h2 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      & > svg {
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   & > div {
     height: 100%;
     width: 100%;

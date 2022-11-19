@@ -67,8 +67,9 @@ export default function Search({
         type="text"
         onChange={(e) => setValorDaBusca(e.target.value)}
         value={valorDaBusca}
+        placeholder="Buscar videos..."
       />
-      <button>🔎</button>
+      <button type="button">🔎</button>
     </StyledSearch>
   );
 }
