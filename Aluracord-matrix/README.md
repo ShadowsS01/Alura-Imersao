@@ -1,8 +1,8 @@
 # Aluracord Matrix
 
-[![license mit](https://img.shields.io/badge/licence-MIT-blue)](../LICENSE)
+[![license mit](https://img.shields.io/badge/licence-MIT-blue)](../LICENSE "Ver licença MIT")
 
-Projeto Next.Js tendo como base o Discord!
+Projeto [Next.Js](https://nextjs.org/ "Site do Next.Js") tendo como ideia o sistema de mensagens do Discord.
 
 ## Tecnologias utilizadas
 
@@ -73,4 +73,6 @@ npm run dev
 
 ## Licença
 
-Este projeto esta sob a licença [MIT](../LICENSE).
+Este projeto esta sob a licença [MIT](../LICENSE "Ver licença MIT").
+
+🔝[Voltar para o topo](#aluracord-matrix "Voltar para o topo")

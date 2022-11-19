@@ -1,8 +1,10 @@
 # Aluratube
 
-[![license mit](https://img.shields.io/badge/licence-MIT-blue)](../LICENSE)
+[![license mit](https://img.shields.io/badge/licence-MIT-blue)](../LICENSE "Ver licença MIT")
 
-Projeto Next.Js tendo como base o YouTube!
+[<img src="./public/Logo.svg" alt="Logo" width="80" />](https://aluratube0.vercel.app/ "Demonstração do projeto")
+
+Projeto [Next.Js](https://nextjs.org/ "Site do Next.Js") tendo como ideia a criação das playlists do YouTube.
 
 ## Tecnologias utilizadas
 
@@ -71,6 +73,12 @@ npm install
 npm run dev
 ```
 
+## Demo
+
+<https://aluratube0.vercel.app/>
+
 ## Licença
 
-Este projeto esta sob a licença [MIT](../LICENSE).
+Este projeto esta sob a licença [MIT](../LICENSE "Ver licença MIT").
+
+🔝[Voltar para o topo](#aluratube "Voltar para o topo")
