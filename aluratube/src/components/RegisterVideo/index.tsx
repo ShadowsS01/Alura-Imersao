@@ -95,6 +95,7 @@ export default function RegisterVideo() {
       const thumb = getInfoVideo.getThumbnail(videoId);
 
       const { error } = await supabase.from("videos").insert({
+        youtube_id: videoId,
         title,
         url,
         thumb,

@@ -1,5 +1,8 @@
-import Image from "next/image";
 import { ReactNode } from "react";
+
+import Image from "next/image";
+import Link from "next/link";
+
 import { PlaylistProps } from "../../utils/types";
 import { StyledTimeline } from "./styles";
 
@@ -29,15 +32,16 @@ export const Timeline = ({ searchValue, propriedades }: TimelineProps) => {
                 })
                 .map((video) => {
                   return (
-                    <a key={video.id} href={video.url}>
+                    <Link key={video.id} href={`?v=${video.youtube_id}`}>
                       <Image
                         width={200}
                         height={121}
+                        priority
                         alt={`Thumbnail do video ${video.title}`}
                         src={video.thumb}
                       />
                       <span>{video.title}</span>
-                    </a>
+                    </Link>
                   );
                 })}
             </div>
