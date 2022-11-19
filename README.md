@@ -26,7 +26,7 @@ Projetos desenvolvidos durante as imersões da [Alura](https://www.alura.com.br/
 - ### [Aluratube](./aluratube/)
 
   - Projeto [Next.Js](https://nextjs.org/) tendo como ideia a criação das playlists do YouTube.
-  - **Leia o [README](./aluratube/#readme) do projeto para mais detalhes!**
+  - **Leia o [README](./aluratube/README.md) do projeto para mais detalhes!**
   - *Demo do projeto pode ser encontrada aqui: <https://aluratube0.vercel.app/>*
 
 ***
@@ -34,4 +34,4 @@ Projetos desenvolvidos durante as imersões da [Alura](https://www.alura.com.br/
 - ### [Aluracord-matrix](./Aluracord-matrix/)
 
   - Projeto [Next.Js](https://nextjs.org/) tendo como ideia o sistema de mensagens do Discord.
-  - **Leia o [README](./Aluracord-matrix/#readme) do projeto para mais detalhes!**
+  - **Leia o [README](./Aluracord-matrix/README.md) do projeto para mais detalhes!**
